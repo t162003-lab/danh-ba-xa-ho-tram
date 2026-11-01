@@ -211,8 +211,25 @@
 
     .filter-grid {
       display: grid;
-      grid-template-columns: 240px 1fr 280px auto;
-      gap: 12px;
+      grid-template-columns: 210px 1fr 240px auto;
+      gap: 14px;
+      align-items: flex-end;
+    }
+
+    .filter-col {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filter-col-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      height: 24px;
+      display: flex;
       align-items: center;
     }
 
@@ -220,8 +237,8 @@
       width: 100%;
       height: 42px;
       padding: 0 14px;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13.5px;
+      font-weight: 600;
       color: var(--text-main);
       background-color: #F8FAFC;
       border: 1px solid var(--border);
@@ -242,16 +259,77 @@
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
+    /* Search Scope Pills Bar */
+    .search-scope-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 24px;
+      gap: 6px;
+    }
+
+    .search-scope-tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .search-scope-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scope-tab {
+      height: 24px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .scope-tab:hover {
+      background: #E2E8F0;
+      color: var(--text-main);
+    }
+
+    .scope-tab.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 1px 3px rgba(30, 58, 138, 0.3);
+    }
+
+    /* Search Input Wrapper */
     .search-box-wrapper {
       position: relative;
       width: 100%;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      background-color: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .search-box-wrapper:focus-within {
+      border-color: var(--primary-light);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
     .search-icon {
       position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
+      left: 12px;
       color: var(--text-sub);
       pointer-events: none;
       display: flex;
@@ -260,22 +338,14 @@
 
     .search-input {
       width: 100%;
-      height: 42px;
-      padding: 0 40px 0 42px;
+      height: 100%;
+      padding: 0 38px 0 38px;
       font-size: 14px;
       font-weight: 500;
       color: var(--text-main);
-      background-color: #F8FAFC;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      background: transparent;
+      border: none;
       outline: none;
-      transition: var(--transition);
-    }
-
-    .search-input:focus {
-      border-color: var(--primary-light);
-      background-color: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
     .search-input::placeholder {
@@ -285,14 +355,12 @@
 
     .clear-search-btn {
       position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 10px;
       background: #E2E8F0;
       border: none;
       border-radius: var(--radius-full);
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       display: none;
       align-items: center;
       justify-content: center;
@@ -311,6 +379,8 @@
     .filter-actions {
       display: flex;
       gap: 8px;
+      height: 42px;
+      align-items: center;
     }
 
     .btn-action {
@@ -414,10 +484,24 @@
       gap: 6px;
       background: var(--primary-bg);
       color: var(--primary-hover);
-      padding: 2px 10px;
+      padding: 3px 10px;
       border-radius: var(--radius-sm);
       font-size: 12.5px;
       font-weight: 700;
+      border: 1px solid #BFDBFE;
+    }
+
+    .status-tag-mode {
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* Contact Cards Grid */
@@ -437,6 +521,9 @@
       .cards-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .filter-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 639px) {
@@ -445,6 +532,15 @@
       }
       .filter-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .filter-col-label {
+        height: auto;
+        margin-bottom: 2px;
+      }
+      .search-scope-header {
+        height: auto;
+        margin-bottom: 4px;
       }
       .app-main-title {
         font-size: 20px;
@@ -907,8 +1003,10 @@
     <!-- Sticky Filter & Search Toolbar -->
     <section class="filter-section">
       <div class="filter-grid">
-        <!-- 1. Category Select -->
-        <div>
+        
+        <!-- 1. Category Select Column -->
+        <div class="filter-col">
+          <div class="filter-col-label">Phân loại</div>
           <select id="select-category" class="select-custom" onchange="handleFilterChange()">
             <option value="ALL">Tất cả Danh bạ (152)</option>
             <option value="KHOI_XA">Khối Xã (96)</option>
@@ -917,17 +1015,37 @@
           </select>
         </div>
 
-        <!-- 2. Search Box -->
-        <div class="search-box-wrapper">
-          <span class="search-icon">
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          </span>
-          <input type="text" id="search-input" class="search-input" placeholder="Tìm theo tên, chức vụ, SĐT, địa danh cũ (gõ có hoặc không dấu)..." oninput="handleSearchInput()" autocomplete="off">
-          <button id="clear-search-btn" class="clear-search-btn" onclick="clearSearch()" title="Xóa chữ">✕</button>
+        <!-- 2. Search Box Column with Scope Selector Pills -->
+        <div class="filter-col">
+          <div class="search-scope-header">
+            <span class="filter-col-label" style="margin:0;">Tìm theo:</span>
+            <div class="search-scope-tabs">
+              <button type="button" class="scope-tab active" data-scope="NAME" onclick="setSearchScope('NAME')">
+                <span>👤</span> Họ & Tên
+              </button>
+              <button type="button" class="scope-tab" data-scope="ROLE" onclick="setSearchScope('ROLE')">
+                <span>💼</span> Chức vụ
+              </button>
+              <button type="button" class="scope-tab" data-scope="PHONE" onclick="setSearchScope('PHONE')">
+                <span>📞</span> Số ĐT
+              </button>
+              <button type="button" class="scope-tab" data-scope="ALL" onclick="setSearchScope('ALL')">
+                <span>🔍</span> Tất cả
+              </button>
+            </div>
+          </div>
+          <div class="search-box-wrapper">
+            <span class="search-icon">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </span>
+            <input type="text" id="search-input" class="search-input" placeholder="Nhập họ tên cần tìm (ví dụ: Trực, Duy, Lộc, Mai, Thảo...)..." oninput="handleSearchInput()" autocomplete="off">
+            <button id="clear-search-btn" class="clear-search-btn" onclick="clearSearch()" title="Xóa từ khóa">✕</button>
+          </div>
         </div>
 
-        <!-- 3. Unit / Ấp Select -->
-        <div>
+        <!-- 3. Unit / Ấp Select Column -->
+        <div class="filter-col">
+          <div class="filter-col-label">Đơn vị / Ấp</div>
           <select id="select-unit" class="select-custom" onchange="handleFilterChange()">
             <option value="ALL">Tất cả Đơn vị / Ban / Ấp</option>
             <optgroup label="--- KHỐI ĐẢNG - CHÍNH QUYỀN - ĐOÀN THỂ XÃ ---">
@@ -939,11 +1057,15 @@
           </select>
         </div>
 
-        <!-- 4. Action Buttons -->
-        <div class="filter-actions">
-          <button class="btn-action btn-icon-location" onclick="filter13ApOnly()" title="Xem nhanh 13 Ấp">📍 13 Ấp</button>
-          <button class="btn-action btn-reset" onclick="resetAllFilters()">Xóa lọc</button>
+        <!-- 4. Action Buttons Column -->
+        <div class="filter-col">
+          <div class="filter-col-label">&nbsp;</div>
+          <div class="filter-actions">
+            <button class="btn-action btn-icon-location" onclick="filter13ApOnly()" title="Xem nhanh 13 Ấp">📍 13 Ấp</button>
+            <button class="btn-action btn-reset" onclick="resetAllFilters()">Xóa lọc</button>
+          </div>
         </div>
+
       </div>
 
       <!-- Quick Filter Chips -->
@@ -965,8 +1087,11 @@
       <div class="status-counter">
         Đang hiển thị <strong id="count-visible">152</strong> / <strong id="count-total">152</strong> liên hệ
         <span id="search-active-tag" style="display:none; margin-left: 8px;" class="status-tag">
-          Từ khóa: "<span id="search-term-display"></span>"
+          <span id="search-scope-display"></span> "<span id="search-term-display"></span>"
           <span style="cursor:pointer; font-weight:bold; margin-left:4px;" onclick="clearSearch()">✕</span>
+        </span>
+        <span id="search-auto-phone-tag" style="display:none; margin-left: 6px;" class="status-tag-mode">
+          💡 Tự động nhận diện Số điện thoại
         </span>
       </div>
       <div>
@@ -983,7 +1108,7 @@
     <div id="no-results" class="no-results" style="display: none;">
       <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
       <h3>Không tìm thấy liên hệ phù hợp</h3>
-      <p>Vui lòng kiểm tra lại từ khóa tìm kiếm hoặc bấm nút "Xóa lọc" để xem toàn bộ danh bạ.</p>
+      <p id="no-results-msg">Vui lòng kiểm tra lại từ khóa tìm kiếm hoặc chọn chế độ "Tất cả" để tra cứu diện rộng.</p>
       <button class="btn-action btn-reset" style="margin-top: 14px;" onclick="resetAllFilters()">Xóa bộ lọc</button>
     </div>
 
@@ -1118,19 +1243,6 @@
       }
     }
 
-    // Chuẩn hóa bản ghi runtime
-    const DANH_BA_DATA = RAW_RECORDS.map(r => {
-      const realPhone = decodePhone(r.pEnc);
-      return {
-        ...r,
-        fullName: r.fullName.normalize('NFC'),
-        role: r.role.normalize('NFC'),
-        unit: r.unit.normalize('NFC'),
-        officeLocation: r.officeLocation ? r.officeLocation.normalize('NFC') : '',
-        phoneRaw: realPhone
-      };
-    });
-
     // Chuẩn hóa tiếng Việt bỏ dấu dùng cho tìm kiếm thông minh
     function normalizeVN(str) {
       if (!str) return "";
@@ -1143,25 +1255,60 @@
         .trim();
     }
 
-    // Chuẩn bị chỉ mục tìm kiếm trước (Pre-indexing)
-    DANH_BA_DATA.forEach(item => {
-      const searchTerms = [
-        normalizeVN(item.fullName),
-        normalizeVN(item.role),
-        normalizeVN(item.unit),
-        normalizeVN(item.officeLocation),
-        normalizeVN(item.categoryName),
-        item.phoneRaw,
-        item.phoneRaw.slice(-4)
-      ];
-      item._searchIndex = searchTerms.join(" ");
+    // Trích xuất chuỗi chỉ gồm chữ số (dành cho tìm kiếm SĐT)
+    function cleanDigits(str) {
+      if (!str) return "";
+      return str.replace(/\D/g, "");
+    }
+
+    // Chuẩn hóa bản ghi runtime với các chỉ mục tìm kiếm chuyên biệt
+    const DANH_BA_DATA = RAW_RECORDS.map(r => {
+      const realPhone = decodePhone(r.pEnc);
+      const fullNameNorm = normalizeVN(r.fullName);
+      const roleNorm = normalizeVN(r.role);
+      const unitNorm = normalizeVN(r.unit);
+      const officeLocationNorm = normalizeVN(r.officeLocation || "");
+      const phoneDigits = cleanDigits(realPhone);
+
+      return {
+        ...r,
+        fullName: r.fullName.normalize('NFC'),
+        role: r.role.normalize('NFC'),
+        unit: r.unit.normalize('NFC'),
+        officeLocation: r.officeLocation ? r.officeLocation.normalize('NFC') : '',
+        phoneRaw: realPhone,
+        _nameNorm: fullNameNorm,
+        _roleNorm: roleNorm,
+        _unitNorm: unitNorm,
+        _officeNorm: officeLocationNorm,
+        _phoneDigits: phoneDigits
+      };
     });
 
-    // State hiện tại
+    // State hiện tại của ứng dụng
     let currentCategory = "ALL";
     let currentUnit = "ALL";
-    let currentSearchTerm = "";
     let currentChip = "ALL";
+    let currentSearchScope = "NAME"; // Mặc định tìm theo Họ và Tên
+
+    const SCOPE_CONFIG = {
+      NAME: {
+        label: "Họ và tên",
+        placeholder: "Nhập họ tên cần tìm (ví dụ: Trực, Duy, Lộc, Mai, Thảo...)..."
+      },
+      ROLE: {
+        label: "Chức vụ",
+        placeholder: "Nhập chức danh, chức vụ (ví dụ: Bí thư, Trưởng ấp, Văn thư, Kế toán...)..."
+      },
+      PHONE: {
+        label: "Số điện thoại",
+        placeholder: "Nhập số điện thoại hoặc 4 số cuối (ví dụ: 0918, 559, 767...)..."
+      },
+      ALL: {
+        label: "Tất cả",
+        placeholder: "Tìm thông minh theo tên, chức vụ, SĐT, đơn vị..."
+      }
+    };
 
     // Khởi chạy khi trang tải xong
     document.addEventListener("DOMContentLoaded", () => {
@@ -1170,6 +1317,30 @@
       setupScrollListener();
       updateQrUrl();
     });
+
+    // Chuyển đổi phạm vi tìm kiếm (Scope Tabs)
+    function setSearchScope(scope) {
+      currentSearchScope = scope;
+      
+      // Cập nhật giao diện tabs
+      document.querySelectorAll(".scope-tab").forEach(tab => {
+        if (tab.getAttribute("data-scope") === scope) {
+          tab.classList.add("active");
+        } else {
+          tab.classList.remove("active");
+        }
+      });
+
+      // Cập nhật placeholder ô nhập
+      const input = document.getElementById("search-input");
+      if (SCOPE_CONFIG[scope]) {
+        input.placeholder = SCOPE_CONFIG[scope].placeholder;
+      }
+
+      // Tự động chạy lại tìm kiếm với phạm vi mới
+      applyFilters();
+      input.focus();
+    }
 
     // Hiển thị danh sách thẻ
     function renderCards(list) {
@@ -1241,64 +1412,157 @@
       container.innerHTML = html;
     }
 
-    // Xử lý bộ lọc & tìm kiếm tổng hợp
+    // Xử lý bộ lọc & tìm kiếm thông minh đa chế độ
     function applyFilters() {
       const searchRaw = document.getElementById("search-input").value;
       const searchNormalized = normalizeVN(searchRaw);
       const searchWords = searchNormalized ? searchNormalized.split(" ") : [];
+      const searchDigits = cleanDigits(searchRaw);
 
       const categoryVal = document.getElementById("select-category").value;
       const unitVal = document.getElementById("select-unit").value;
 
-      // Cập nhật tag hiển thị từ khóa
+      // Cập nhật thanh hiển thị từ khóa & nút xóa
       const searchTag = document.getElementById("search-active-tag");
       const searchTermDisplay = document.getElementById("search-term-display");
+      const searchScopeDisplay = document.getElementById("search-scope-display");
+      const autoPhoneTag = document.getElementById("search-auto-phone-tag");
       const clearBtn = document.getElementById("clear-search-btn");
+
+      // Tự động nhận diện nếu người dùng gõ số điện thoại khi đang ở tab Họ tên hoặc Chức vụ
+      const isNumericQuery = searchDigits && searchDigits.length >= 3 && (!searchNormalized || searchDigits === searchNormalized.replace(/\s/g, ''));
+      let effectiveScope = currentSearchScope;
+      if (isNumericQuery && (currentSearchScope === "NAME" || currentSearchScope === "ROLE")) {
+        effectiveScope = "PHONE";
+        autoPhoneTag.style.display = "inline-flex";
+      } else {
+        autoPhoneTag.style.display = "none";
+      }
 
       if (searchRaw.trim()) {
         searchTag.style.display = "inline-flex";
         searchTermDisplay.textContent = searchRaw.trim();
+        searchScopeDisplay.textContent = SCOPE_CONFIG[effectiveScope].label + ":";
         clearBtn.style.display = "flex";
       } else {
         searchTag.style.display = "none";
         clearBtn.style.display = "none";
       }
 
-      const filtered = DANH_BA_DATA.filter(item => {
+      const matchedList = [];
+
+      for (let i = 0; i < DANH_BA_DATA.length; i++) {
+        const item = DANH_BA_DATA[i];
+
         // 1. Lọc theo Danh mục
         if (categoryVal !== "ALL") {
-          if (item.category !== categoryVal) return false;
+          if (item.category !== categoryVal) continue;
         }
 
         // 2. Lọc theo Đơn vị / Ấp
         if (unitVal !== "ALL") {
-          if (item.unit !== unitVal) return false;
+          if (item.unit !== unitVal) continue;
         }
 
-        // 3. Lọc theo Chip phụ (Bao phủ đầy đủ 152 bản ghi)
+        // 3. Lọc theo Chip phụ
         if (currentChip !== "ALL") {
-          if (currentChip === "13AP" && item.category !== "KHOI_AP") return false;
-          if (currentChip === "DANG" && !(item.unit.includes("ĐẢNG") || item.unit.includes("KIỂM TRA") || item.unit.includes("XÂY DỰNG") || item.unit.includes("CHÍNH TRỊ"))) return false;
-          if (currentChip === "UBND" && !(item.unit.includes("ỦY BAN NHÂN DÂN") || item.unit.includes("PHÒNG KINH TẾ") || item.unit.includes("PHÒNG VĂN HÓA") || item.unit.includes("VĂN PHÒNG HĐND"))) return false;
-          if (currentChip === "MTTQ" && !item.unit.includes("MẶT TRẬN")) return false;
-          if (currentChip === "LLVT" && !(item.unit.includes("CÔNG AN") || item.unit.includes("QUÂN SỰ"))) return false;
-          if (currentChip === "HANHCHINHCONG" && !item.unit.includes("HÀNH CHÍNH CÔNG")) return false;
-          if (currentChip === "VHTT" && !item.unit.includes("THỂ THAO VÀ DU LỊCH")) return false;
-          if (currentChip === "CU" && item.category !== "KHOI_AP_CU") return false;
+          if (currentChip === "13AP" && item.category !== "KHOI_AP") continue;
+          if (currentChip === "DANG" && !(item.unit.includes("ĐẢNG") || item.unit.includes("KIỂM TRA") || item.unit.includes("XÂY DỰNG") || item.unit.includes("CHÍNH TRỊ"))) continue;
+          if (currentChip === "UBND" && !(item.unit.includes("ỦY BAN NHÂN DÂN") || item.unit.includes("PHÒNG KINH TẾ") || item.unit.includes("PHÒNG VĂN HÓA") || item.unit.includes("VĂN PHÒNG HĐND"))) continue;
+          if (currentChip === "MTTQ" && !item.unit.includes("MẶT TRẬN")) continue;
+          if (currentChip === "LLVT" && !(item.unit.includes("CÔNG AN") || item.unit.includes("QUÂN SỰ"))) continue;
+          if (currentChip === "HANHCHINHCONG" && !item.unit.includes("HÀNH CHÍNH CÔNG")) continue;
+          if (currentChip === "VHTT" && !item.unit.includes("THỂ THAO VÀ DU LỊCH")) continue;
+          if (currentChip === "CU" && item.category !== "KHOI_AP_CU") continue;
         }
 
-        // 4. Lọc theo Từ khóa tìm kiếm đa trường
-        if (searchWords.length > 0) {
-          const index = item._searchIndex;
-          for (const word of searchWords) {
-            if (!index.includes(word)) return false;
+        // 4. Lọc theo Từ khóa tìm kiếm theo PHẠM VI (SCOPE)
+        let isMatch = false;
+        let score = 0;
+
+        if (searchWords.length === 0 && !searchDigits) {
+          // Không có từ khóa: hiển thị tất cả
+          isMatch = true;
+          score = 1;
+        } else {
+          if (effectiveScope === "NAME") {
+            // CHỈ TÌM TRONG HỌ VÀ TÊN (Loại bỏ 100% việc trùng chức vụ hay đơn vị)
+            if (searchWords.length > 0 && searchWords.every(w => item._nameNorm.includes(w))) {
+              isMatch = true;
+              const nameParts = item._nameNorm.split(" ");
+              // Ưu tiên cao nhất nếu khớp tên chính (từ cuối cùng)
+              if (nameParts.length > 0 && nameParts[nameParts.length - 1] === searchWords[searchWords.length - 1]) {
+                score = 120;
+              } else {
+                score = 100;
+              }
+            }
+          } else if (effectiveScope === "ROLE") {
+            // CHỈ TÌM TRONG CHỨC VỤ / CHỨC DANH
+            if (searchWords.length > 0) {
+              if (searchWords.every(w => item._roleNorm.includes(w))) {
+                isMatch = true;
+                score = 100;
+              } else if (searchNormalized.includes("thuong truc") && item._roleNorm.includes("tt")) {
+                // Hỗ trợ từ viết tắt "TT" (Thường trực)
+                isMatch = true;
+                score = 90;
+              }
+            }
+          } else if (effectiveScope === "PHONE") {
+            // CHỈ TÌM THEO SỐ ĐIỆN THOẠI
+            if (searchDigits && item._phoneDigits.includes(searchDigits)) {
+              isMatch = true;
+              // Nếu khớp đuôi (4 số cuối) -> ưu tiên điểm cao hơn
+              if (item._phoneDigits.endsWith(searchDigits)) {
+                score = 120;
+              } else {
+                score = 100;
+              }
+            }
+          } else {
+            // CHẾ ĐỘ "TẤT CẢ" (Xếp hạng thông minh - Ưu tiên Tên > SĐT > Chức vụ > Đơn vị)
+            if (searchDigits && searchDigits.length >= 3 && item._phoneDigits.includes(searchDigits)) {
+              isMatch = true;
+              score += 150;
+            }
+            if (searchWords.length > 0 && searchWords.every(w => item._nameNorm.includes(w))) {
+              isMatch = true;
+              const nameParts = item._nameNorm.split(" ");
+              if (nameParts.length > 0 && nameParts[nameParts.length - 1] === searchWords[searchWords.length - 1]) {
+                score += 120; // Tên đứng đầu
+              } else {
+                score += 80;
+              }
+            }
+            if (searchWords.length > 0 && searchWords.every(w => item._roleNorm.includes(w))) {
+              isMatch = true;
+              score += 50;
+            } else if (searchNormalized.includes("thuong truc") && item._roleNorm.includes("tt")) {
+              isMatch = true;
+              score += 45;
+            }
+            if (searchWords.length > 0 && searchWords.every(w => item._unitNorm.includes(w))) {
+              isMatch = true;
+              score += 10; // Đơn vị xếp sau cùng
+            }
+            if (searchWords.length > 0 && searchWords.every(w => item._officeNorm.includes(w))) {
+              isMatch = true;
+              score += 5;
+            }
           }
         }
 
-        return true;
-      });
+        if (isMatch) {
+          matchedList.append ? matchedList.append({ score, item }) : matchedList.push({ score, item });
+        }
+      }
 
-      renderCards(filtered);
+      // Sắp xếp theo điểm xếp hạng giảm dần
+      matchedList.sort((a, b) => b.score - a.score);
+      const finalResults = matchedList.map(x => x.item);
+
+      renderCards(finalResults);
     }
 
     function handleSearchInput() {
@@ -1320,6 +1584,7 @@
       document.getElementById("select-category").value = "ALL";
       document.getElementById("select-unit").value = "ALL";
       currentChip = "ALL";
+      setSearchScope("NAME"); // Khôi phục mặc định tìm theo Tên
       document.querySelectorAll(".chip-item").forEach(el => el.classList.remove("active"));
       document.querySelector(".chip-item").classList.add("active");
       applyFilters();
