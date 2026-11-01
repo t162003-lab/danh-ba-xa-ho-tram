@@ -224,14 +224,7 @@
       box-sizing: border-box;
     }
 
-    /* 
-      DESKTOP FILTER GRID (>= 769px):
-      4 distinct columns, perfectly aligned at bottom:
-      Col 1 (210px): Phân loại
-      Col 2 (1fr): Ô Tìm kiếm & Scope Tabs rộng rãi
-      Col 3 (240px): Đơn vị / Ban / Ấp
-      Col 4 (auto): Cụm nút bấm
-    */
+    /* DESKTOP FILTER GRID (>= 769px): 4 distinct columns, perfectly aligned at bottom */
     @media (min-width: 769px) {
       .filter-section {
         position: sticky;
@@ -1481,6 +1474,7 @@
       const unitNorm = normalizeVN(r.unit);
       const officeLocationNorm = normalizeVN(r.officeLocation || "");
       const phoneDigits = cleanDigits(realPhone);
+      const roleTokens = roleNorm.split(/[\s,./()_-]+/).filter(Boolean);
 
       return {
         ...r,
@@ -1491,6 +1485,7 @@
         phoneRaw: realPhone,
         _nameNorm: fullNameNorm,
         _roleNorm: roleNorm,
+        _roleTokens: roleTokens,
         _unitNorm: unitNorm,
         _officeNorm: officeLocationNorm,
         _phoneDigits: phoneDigits
@@ -1552,6 +1547,53 @@
       // Tự động chạy lại tìm kiếm với phạm vi mới
       applyFilters();
       input.focus();
+    }
+
+    // Hàm nhận diện & khớp chức vụ chuyên sâu chống lỗi chữ viết tắt (TT, UBMTTQ, VP, v.v.)
+    function isRoleMatch(searchWords, searchNorm, roleNorm, roleTokens) {
+      if (!searchNorm || searchWords.length === 0) return false;
+
+      // 1. Nhận diện "trực", "thường trực", "tt" -> Khớp chức vụ Thường trực / TT (Ví dụ: Phó Bí thư TT)
+      // Chặn triệt để lỗi "tt" vô tình khớp bên trong chữ "ubmttq"
+      if (searchNorm === "truc" || searchNorm === "thuong truc" || searchNorm === "tt" || searchNorm.includes("truc")) {
+        if (roleTokens.includes("tt") || roleNorm.includes("thuong truc") || roleNorm.includes("truc")) {
+          return true;
+        }
+      }
+
+      // 2. Nhận diện "văn phòng" hoặc "vp" -> Khớp chức vụ VP (Ví dụ: Phó Chánh VP)
+      if (searchNorm.includes("van phong") || searchNorm === "vp") {
+        if (roleTokens.includes("vp") || roleNorm.includes("van phong")) {
+          return true;
+        }
+      }
+
+      // 3. Nhận diện "mặt trận" hoặc "mttq"
+      if (searchNorm.includes("mat tran") || searchNorm === "mttq" || searchNorm === "ubmt" || searchNorm === "ubmttq") {
+        if (roleTokens.includes("ubmttq") || roleTokens.includes("ubmt") || roleTokens.includes("ctmt") || roleNorm.includes("mat tran")) {
+          return true;
+        }
+      }
+
+      // 4. Khớp từ ngữ chuẩn: Với từ ngắn <= 2 ký tự (như tt, vp), bắt buộc phải khớp nguyên từ (token)
+      // tránh việc "tt" vô tình khớp bên trong "ubmttq"
+      let allWordsMatch = true;
+      for (let i = 0; i < searchWords.length; i++) {
+        const w = searchWords[i];
+        if (w.length <= 2) {
+          if (!roleTokens.includes(w)) {
+            allWordsMatch = false;
+            break;
+          }
+        } else {
+          if (!roleNorm.includes(w)) {
+            allWordsMatch = false;
+            break;
+          }
+        }
+      }
+
+      return allWordsMatch;
     }
 
     // Hiển thị danh sách thẻ
@@ -1708,15 +1750,10 @@
               }
             }
           } else if (effectiveScope === "ROLE") {
-            // CHỈ TÌM TRONG CHỨC VỤ / CHỨC DANH
-            if (searchWords.length > 0) {
-              if (searchWords.every(w => item._roleNorm.includes(w))) {
-                isMatch = true;
-                score = 100;
-              } else if (searchNormalized.includes("thuong truc") && item._roleNorm.includes("tt")) {
-                isMatch = true;
-                score = 90;
-              }
+            // CHỈ TÌM TRONG CHỨC VỤ / CHỨC DANH BẰNG BỘ QUY TẮC CHUYÊN SÂU
+            if (isRoleMatch(searchWords, searchNormalized, item._roleNorm, item._roleTokens)) {
+              isMatch = true;
+              score = 100;
             }
           } else if (effectiveScope === "PHONE") {
             // CHỈ TÌM THEO SỐ ĐIỆN THOẠI
@@ -1743,12 +1780,9 @@
                 score += 80;
               }
             }
-            if (searchWords.length > 0 && searchWords.every(w => item._roleNorm.includes(w))) {
+            if (isRoleMatch(searchWords, searchNormalized, item._roleNorm, item._roleTokens)) {
               isMatch = true;
               score += 50;
-            } else if (searchNormalized.includes("thuong truc") && item._roleNorm.includes("tt")) {
-              isMatch = true;
-              score += 45;
             }
             if (searchWords.length > 0 && searchWords.every(w => item._unitNorm.includes(w))) {
               isMatch = true;
