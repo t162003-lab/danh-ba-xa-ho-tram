@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="description" content="Danh bạ điện thoại thông minh Xã Hồ Tràm - Tra cứu nhanh số điện thoại cán bộ, công chức và nhân sự 13 ấp">
   <meta property="og:title" content="Danh bạ Điện thoại Thông minh - Xã Hồ Tràm">
@@ -10,6 +10,8 @@
   <meta property="og:url" content="https://tinyurl.com/2mt9hp2m">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#1E3A8A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>DANH BẠ ĐIỆN THOẠI THÔNG MINH - XÃ HỒ TRÀM</title>
   <style>
     :root {
@@ -39,19 +41,32 @@
       --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * {
+    /* Global Reset & Cross-Platform Typography */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif;
       background-color: var(--bg-page);
       color: var(--text-main);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      touch-action: manipulation;
     }
 
     /* Top Administrative Banner */
@@ -60,6 +75,7 @@
       border-bottom: 2px solid #E2E8F0;
       box-shadow: var(--shadow-sm);
       position: relative;
+      width: 100%;
     }
 
     .header-top {
@@ -192,9 +208,11 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    /* Sticky Filter Toolbar */
+    /* Filter & Search Toolbar */
     .filter-section {
       background: var(--surface);
       border-radius: var(--radius-lg);
@@ -202,24 +220,33 @@
       padding: 16px 20px;
       margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 10px;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.98);
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .filter-grid {
-      display: grid;
-      grid-template-columns: 210px 1fr 240px auto;
-      gap: 14px;
-      align-items: flex-end;
+    /* DESKTOP TOOLBAR (>= 769px): Sticky, spacious & elegant */
+    @media (min-width: 769px) {
+      .filter-section {
+        position: sticky;
+        top: 12px;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.98);
+      }
+
+      .filter-grid {
+        display: grid;
+        grid-template-columns: 210px 1fr 240px auto;
+        gap: 14px;
+        align-items: flex-end;
+      }
     }
 
     .filter-col {
       display: flex;
       flex-direction: column;
       gap: 5px;
+      min-width: 0;
     }
 
     .filter-col-label {
@@ -231,6 +258,7 @@
       height: 24px;
       display: flex;
       align-items: center;
+      white-space: nowrap;
     }
 
     .select-custom {
@@ -251,6 +279,7 @@
       background-repeat: no-repeat;
       background-position: right 12px center;
       background-size: 14px;
+      box-sizing: border-box;
     }
 
     .select-custom:focus {
@@ -266,17 +295,13 @@
       justify-content: space-between;
       height: 24px;
       gap: 6px;
+      width: 100%;
     }
 
     .search-scope-tabs {
       display: flex;
       gap: 4px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .search-scope-tabs::-webkit-scrollbar {
-      display: none;
+      width: 100%;
     }
 
     .scope-tab {
@@ -291,9 +316,11 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 4px;
       transition: var(--transition);
       white-space: nowrap;
+      flex: 1;
     }
 
     .scope-tab:hover {
@@ -308,7 +335,7 @@
       box-shadow: 0 1px 3px rgba(30, 58, 138, 0.3);
     }
 
-    /* Search Input Wrapper */
+    /* Search Input Box */
     .search-box-wrapper {
       position: relative;
       width: 100%;
@@ -319,6 +346,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       transition: var(--transition);
+      box-sizing: border-box;
     }
 
     .search-box-wrapper:focus-within {
@@ -339,13 +367,14 @@
     .search-input {
       width: 100%;
       height: 100%;
-      padding: 0 38px 0 38px;
+      padding: 0 36px 0 38px;
       font-size: 14px;
       font-weight: 500;
       color: var(--text-main);
       background: transparent;
       border: none;
       outline: none;
+      box-sizing: border-box;
     }
 
     .search-input::placeholder {
@@ -430,6 +459,8 @@
       margin-top: 12px;
       border-top: 1px dashed var(--border);
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
     }
 
     .quick-chips-wrapper::-webkit-scrollbar {
@@ -447,6 +478,7 @@
       cursor: pointer;
       white-space: nowrap;
       transition: var(--transition);
+      flex-shrink: 0;
     }
 
     .chip-item:hover {
@@ -509,6 +541,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
+      width: 100%;
     }
 
     @media (min-width: 1024px) and (max-width: 1279px) {
@@ -520,33 +553,6 @@
     @media (min-width: 640px) and (max-width: 1023px) {
       .cards-grid {
         grid-template-columns: repeat(2, 1fr);
-      }
-      .filter-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 639px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .filter-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      .filter-col-label {
-        height: auto;
-        margin-bottom: 2px;
-      }
-      .search-scope-header {
-        height: auto;
-        margin-bottom: 4px;
-      }
-      .app-main-title {
-        font-size: 20px;
-      }
-      .main-container {
-        padding: 12px;
       }
     }
 
@@ -562,6 +568,8 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      box-sizing: border-box;
+      width: 100%;
     }
 
     .contact-card:hover {
@@ -695,6 +703,14 @@
       cursor: pointer;
       transition: var(--transition);
       user-select: all;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .phone-box span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .phone-box:hover {
@@ -770,6 +786,8 @@
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
+      max-width: 90vw;
+      text-align: center;
     }
 
     .toast-container.show {
@@ -794,6 +812,7 @@
       pointer-events: none;
       transition: opacity 0.25s ease;
       padding: 16px;
+      box-sizing: border-box;
     }
 
     .modal-backdrop.open {
@@ -813,6 +832,7 @@
       overflow: hidden;
       transform: scale(0.95);
       transition: transform 0.25s ease;
+      box-sizing: border-box;
     }
 
     .modal-backdrop.open .modal-box {
@@ -829,7 +849,7 @@
     }
 
     .modal-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--primary);
       display: flex;
@@ -860,6 +880,7 @@
     .modal-body {
       padding: 20px;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Table within modal */
@@ -920,14 +941,14 @@
     .btn-scroll-top {
       position: fixed;
       bottom: 24px;
-      right: 24px;
+      right: 20px;
       width: 44px;
       height: 44px;
       background: var(--primary);
       color: #FFFFFF;
       border: none;
       border-radius: var(--radius-full);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.35);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -957,12 +978,191 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 13px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .footer-org {
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 4px;
+    }
+
+    /* ==========================================================================
+       MOBILE RESPONSIVE SPECIALIZATION (<= 768px):
+       - Fix "bị dính": position: relative (NOT sticky on mobile)
+       - Fix "tràn màn hình": full width, 100% box-sizing, grid tabs
+       - Prevent iOS Safari zoom: font-size 16px on inputs/selects
+       - Ergonomic thumb layout: Search box on top, 2 selects side-by-side
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* 1. KHẮC PHỤC TRIỆT ĐỂ LỖI DÍNH: Không dùng sticky trên điện thoại */
+      .filter-section {
+        position: relative !important;
+        top: auto !important;
+        padding: 12px 14px;
+        margin-bottom: 12px;
+        border-radius: var(--radius-md);
+      }
+
+      /* 2. Sắp xếp lại lưới tìm kiếm theo dạng công thái học di động */
+      .filter-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      /* Đưa ô tìm kiếm lên vị trí SỐ 1 để người dùng gõ tìm ngay */
+      .col-search {
+        order: 1;
+        width: 100%;
+      }
+
+      /* 2 ô chọn phân loại & đơn vị nằm chung 1 hàng (tiết kiệm 50% chiều cao) */
+      .mobile-selects-row {
+        order: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      /* Cụm nút thao tác (13 ấp & xóa lọc) */
+      .col-actions {
+        order: 3;
+        width: 100%;
+      }
+
+      .filter-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .btn-action {
+        width: 100%;
+        height: 38px;
+        font-size: 13px;
+      }
+
+      /* 3. Khắc phục tràn viền: 4 tabs chia đều 4 cột (grid 1fr 1fr 1fr 1fr) */
+      .search-scope-header {
+        height: auto;
+        margin-bottom: 6px;
+      }
+
+      .search-scope-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        width: 100%;
+      }
+
+      .scope-tab {
+        height: 28px;
+        padding: 0 4px;
+        font-size: 11px;
+        font-weight: 700;
+        text-align: center;
+        border-radius: 6px;
+      }
+
+      .scope-tab span {
+        margin-right: 2px;
+      }
+
+      /* Ngăn iOS Safari tự động phóng to trang web (Auto-zoom quirk) */
+      .search-input, .select-custom {
+        font-size: 16px !important;
+      }
+
+      .search-input {
+        height: 40px;
+      }
+
+      .select-custom {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 13px !important;
+      }
+
+      /* 4. Tinh chỉnh Header & Layout chung trên điện thoại */
+      .header-container {
+        padding: 14px 12px;
+      }
+
+      .header-top {
+        font-size: 11px;
+        padding: 5px 10px;
+        letter-spacing: 0.3px;
+      }
+
+      .gov-title-sub {
+        font-size: 11.5px;
+      }
+
+      .gov-title-org {
+        font-size: 13px;
+      }
+
+      .app-main-title {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+
+      .badge-year {
+        font-size: 11px;
+        padding: 1px 6px;
+      }
+
+      .app-subtitle {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .header-actions {
+        gap: 6px;
+      }
+
+      .btn-header {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .main-container {
+        padding: 10px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .contact-card {
+        padding: 14px;
+      }
+
+      .card-name {
+        font-size: 16px;
+      }
+
+      .btn-call, .btn-save {
+        padding: 0 10px;
+        font-size: 12.5px;
+        height: 36px;
+      }
+
+      .phone-box {
+        font-size: 12.5px;
+        height: 36px;
+      }
+
+      .status-bar {
+        font-size: 12.5px;
+        margin-bottom: 12px;
+      }
     }
   </style>
 </head>
@@ -985,13 +1185,13 @@
       
       <div class="header-actions">
         <button class="btn-header primary" onclick="openApModal()">
-          <span>📍</span> Danh sách 13 Trụ sở Ấp
+          <span>📍</span> 13 Trụ sở Ấp
         </button>
         <button class="btn-header" onclick="openQrModal()">
-          <span>📱</span> Mã QR Tra cứu
+          <span>📱</span> Mã QR
         </button>
         <button class="btn-header" onclick="sharePortal()">
-          <span>🔗</span> Chia sẻ Danh bạ
+          <span>🔗</span> Chia sẻ
         </button>
       </div>
     </div>
@@ -1000,25 +1200,13 @@
   <!-- Main Content Area -->
   <main class="main-container">
 
-    <!-- Sticky Filter & Search Toolbar -->
+    <!-- Filter & Search Toolbar -->
     <section class="filter-section">
       <div class="filter-grid">
         
-        <!-- 1. Category Select Column -->
-        <div class="filter-col">
-          <div class="filter-col-label">Phân loại</div>
-          <select id="select-category" class="select-custom" onchange="handleFilterChange()">
-            <option value="ALL">Tất cả Danh bạ (152)</option>
-            <option value="KHOI_XA">Khối Xã (96)</option>
-            <option value="KHOI_AP">Nhân sự 13 Ấp (39)</option>
-            <option value="KHOI_AP_CU">Ban CTMT địa bàn cũ (17)</option>
-          </select>
-        </div>
-
-        <!-- 2. Search Box Column with Scope Selector Pills -->
-        <div class="filter-col">
+        <!-- Search Box Column with Scope Selector Pills -->
+        <div class="filter-col col-search">
           <div class="search-scope-header">
-            <span class="filter-col-label" style="margin:0;">Tìm theo:</span>
             <div class="search-scope-tabs">
               <button type="button" class="scope-tab active" data-scope="NAME" onclick="setSearchScope('NAME')">
                 <span>👤</span> Họ & Tên
@@ -1043,26 +1231,40 @@
           </div>
         </div>
 
-        <!-- 3. Unit / Ấp Select Column -->
-        <div class="filter-col">
-          <div class="filter-col-label">Đơn vị / Ấp</div>
-          <select id="select-unit" class="select-custom" onchange="handleFilterChange()">
-            <option value="ALL">Tất cả Đơn vị / Ban / Ấp</option>
-            <optgroup label="--- KHỐI ĐẢNG - CHÍNH QUYỀN - ĐOÀN THỂ XÃ ---">
-              <option value="THƯỜNG TRỰC ĐẢNG ỦY - VĂN PHÒNG ĐẢNG ỦY">THƯỜNG TRỰC ĐẢNG ỦY - VĂN PHÒNG ĐẢNG ỦY</option><option value="ỦY BAN KIỂM TRA ĐẢNG ỦY">ỦY BAN KIỂM TRA ĐẢNG ỦY</option><option value="BAN XÂY DỰNG ĐẢNG">BAN XÂY DỰNG ĐẢNG</option><option value="ỦY BAN MẶT TRẬN TỔ QUỐC VIỆT NAM XÃ">ỦY BAN MẶT TRẬN TỔ QUỐC VIỆT NAM XÃ</option><option value="TRUNG TÂM CHÍNH TRỊ XÃ">TRUNG TÂM CHÍNH TRỊ XÃ</option><option value="LÃNH ĐẠO ỦY BAN NHÂN DÂN XÃ">LÃNH ĐẠO ỦY BAN NHÂN DÂN XÃ</option><option value="VĂN PHÒNG HĐND VÀ UBND XÃ">VĂN PHÒNG HĐND VÀ UBND XÃ</option><option value="PHÒNG KINH TẾ">PHÒNG KINH TẾ</option><option value="PHÒNG VĂN HÓA - XÃ HỘI">PHÒNG VĂN HÓA - XÃ HỘI</option><option value="TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG">TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG</option><option value="BAN CHỈ HUY QUÂN SỰ XÃ">BAN CHỈ HUY QUÂN SỰ XÃ</option><option value="CÔNG AN XÃ HỒ TRÀM">CÔNG AN XÃ HỒ TRÀM</option><option value="TRUNG TÂM VĂN HÓA - THÔNG TIN - THỂ THAO VÀ DU LỊCH">TRUNG TÂM VĂN HÓA - THÔNG TIN - THỂ THAO VÀ DU LỊCH</option>
-            </optgroup>
-            <optgroup label="--- 13 ẤP CHỦ CHỐT ---">
-              <option value="ẤP HỒ TRÀM">ẤP HỒ TRÀM</option><option value="ẤP ÔNG TÔ">ẤP ÔNG TÔ</option><option value="ẤP LÁNG SIM">ẤP LÁNG SIM</option><option value="ẤP PHƯỚC TIẾN">ẤP PHƯỚC TIẾN</option><option value="ẤP PHƯỚC BỬU">ẤP PHƯỚC BỬU</option><option value="ẤP PHƯỚC THUẬN">ẤP PHƯỚC THUẬN</option><option value="ẤP THẠNH SƠN">ẤP THẠNH SƠN</option><option value="ẤP PHƯỚC LỘC">ẤP PHƯỚC LỘC</option><option value="ẤP XUYÊN PHƯỚC CƠ">ẤP XUYÊN PHƯỚC CƠ</option><option value="ẤP BÀ TÔ">ẤP BÀ TÔ</option><option value="ẤP BÀ RỊA">ẤP BÀ RỊA</option><option value="ẤP PHƯỚC TÂN">ẤP PHƯỚC TÂN</option><option value="ẤP TÂN AN">ẤP TÂN AN</option>
-            </optgroup>
-          </select>
+        <!-- 2 Selects: Side-by-side on mobile, separate columns on desktop -->
+        <div class="mobile-selects-row">
+          <!-- 1. Category Select Column -->
+          <div class="filter-col">
+            <div class="filter-col-label">Phân loại</div>
+            <select id="select-category" class="select-custom" onchange="handleFilterChange()">
+              <option value="ALL">Tất cả (152)</option>
+              <option value="KHOI_XA">Khối Xã (96)</option>
+              <option value="KHOI_AP">13 Ấp (39)</option>
+              <option value="KHOI_AP_CU">CTMT cũ (17)</option>
+            </select>
+          </div>
+
+          <!-- 2. Unit / Ấp Select Column -->
+          <div class="filter-col">
+            <div class="filter-col-label">Đơn vị / Ấp</div>
+            <select id="select-unit" class="select-custom" onchange="handleFilterChange()">
+              <option value="ALL">Tất cả Đơn vị / Ấp</option>
+              <optgroup label="--- KHỐI ĐẢNG - CHÍNH QUYỀN - ĐOÀN THỂ XÃ ---">
+                <option value="THƯỜNG TRỰC ĐẢNG ỦY - VĂN PHÒNG ĐẢNG ỦY">THƯỜNG TRỰC ĐẢNG ỦY - VĂN PHÒNG ĐẢNG ỦY</option><option value="ỦY BAN KIỂM TRA ĐẢNG ỦY">ỦY BAN KIỂM TRA ĐẢNG ỦY</option><option value="BAN XÂY DỰNG ĐẢNG">BAN XÂY DỰNG ĐẢNG</option><option value="ỦY BAN MẶT TRẬN TỔ QUỐC VIỆT NAM XÃ">ỦY BAN MẶT TRẬN TỔ QUỐC VIỆT NAM XÃ</option><option value="TRUNG TÂM CHÍNH TRỊ XÃ">TRUNG TÂM CHÍNH TRỊ XÃ</option><option value="LÃNH ĐẠO ỦY BAN NHÂN DÂN XÃ">LÃNH ĐẠO ỦY BAN NHÂN DÂN XÃ</option><option value="VĂN PHÒNG HĐND VÀ UBND XÃ">VĂN PHÒNG HĐND VÀ UBND XÃ</option><option value="PHÒNG KINH TẾ">PHÒNG KINH TẾ</option><option value="PHÒNG VĂN HÓA - XÃ HỘI">PHÒNG VĂN HÓA - XÃ HỘI</option><option value="TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG">TRUNG TÂM PHỤC VỤ HÀNH CHÍNH CÔNG</option><option value="BAN CHỈ HUY QUÂN SỰ XÃ">BAN CHỈ HUY QUÂN SỰ XÃ</option><option value="CÔNG AN XÃ HỒ TRÀM">CÔNG AN XÃ HỒ TRÀM</option><option value="TRUNG TÂM VĂN HÓA - THÔNG TIN - THỂ THAO VÀ DU LỊCH">TRUNG TÂM VĂN HÓA - THÔNG TIN - THỂ THAO VÀ DU LỊCH</option>
+              </optgroup>
+              <optgroup label="--- 13 ẤP CHỦ CHỐT ---">
+                <option value="ẤP HỒ TRÀM">ẤP HỒ TRÀM</option><option value="ẤP ÔNG TÔ">ẤP ÔNG TÔ</option><option value="ẤP LÁNG SIM">ẤP LÁNG SIM</option><option value="ẤP PHƯỚC TIẾN">ẤP PHƯỚC TIẾN</option><option value="ẤP PHƯỚC BỬU">ẤP PHƯỚC BỬU</option><option value="ẤP PHƯỚC THUẬN">ẤP PHƯỚC THUẬN</option><option value="ẤP THẠNH SƠN">ẤP THẠNH SƠN</option><option value="ẤP PHƯỚC LỘC">ẤP PHƯỚC LỘC</option><option value="ẤP XUYÊN PHƯỚC CƠ">ẤP XUYÊN PHƯỚC CƠ</option><option value="ẤP BÀ TÔ">ẤP BÀ TÔ</option><option value="ẤP BÀ RỊA">ẤP BÀ RỊA</option><option value="ẤP PHƯỚC TÂN">ẤP PHƯỚC TÂN</option><option value="ẤP TÂN AN">ẤP TÂN AN</option>
+              </optgroup>
+            </select>
+          </div>
         </div>
 
         <!-- 4. Action Buttons Column -->
-        <div class="filter-col">
-          <div class="filter-col-label">&nbsp;</div>
+        <div class="filter-col col-actions">
+          <div class="filter-col-label" style="opacity: 0;">Thao tác</div>
           <div class="filter-actions">
-            <button class="btn-action btn-icon-location" onclick="filter13ApOnly()" title="Xem nhanh 13 Ấp">📍 13 Ấp</button>
-            <button class="btn-action btn-reset" onclick="resetAllFilters()">Xóa lọc</button>
+            <button class="btn-action btn-icon-location" onclick="filter13ApOnly()" title="Xem nhanh 13 Ấp">📍 13 Trụ sở Ấp</button>
+            <button class="btn-action btn-reset" onclick="resetAllFilters()">Xóa bộ lọc</button>
           </div>
         </div>
 
@@ -1086,16 +1288,16 @@
     <div class="status-bar">
       <div class="status-counter">
         Đang hiển thị <strong id="count-visible">152</strong> / <strong id="count-total">152</strong> liên hệ
-        <span id="search-active-tag" style="display:none; margin-left: 8px;" class="status-tag">
+        <span id="search-active-tag" style="display:none; margin-left: 6px;" class="status-tag">
           <span id="search-scope-display"></span> "<span id="search-term-display"></span>"
           <span style="cursor:pointer; font-weight:bold; margin-left:4px;" onclick="clearSearch()">✕</span>
         </span>
         <span id="search-auto-phone-tag" style="display:none; margin-left: 6px;" class="status-tag-mode">
-          💡 Tự động nhận diện Số điện thoại
+          💡 Tự nhận SĐT
         </span>
       </div>
       <div>
-        <span style="font-size: 12.5px; color: var(--text-sub);">💡 Chạm vào SĐT để sao chép • Bấm Gọi để quay số trực tiếp</span>
+        <span style="font-size: 12px; color: var(--text-sub);">💡 Chạm vào SĐT để sao chép • Bấm Gọi để quay số</span>
       </div>
     </div>
 
@@ -1134,7 +1336,7 @@
           <table class="table-ap">
             <thead>
               <tr>
-                <th style="width: 45px; text-align: center;">STT</th>
+                <th style="width: 40px; text-align: center;">STT</th>
                 <th>Ấp Mới</th>
                 <th>📍 Trụ Sở Sinh Hoạt</th>
                 <th>Bí Thư Chi Bộ</th>
@@ -1481,16 +1683,14 @@
         let score = 0;
 
         if (searchWords.length === 0 && !searchDigits) {
-          // Không có từ khóa: hiển thị tất cả
           isMatch = true;
           score = 1;
         } else {
           if (effectiveScope === "NAME") {
-            // CHỈ TÌM TRONG HỌ VÀ TÊN (Loại bỏ 100% việc trùng chức vụ hay đơn vị)
+            // CHỈ TÌM TRONG HỌ VÀ TÊN
             if (searchWords.length > 0 && searchWords.every(w => item._nameNorm.includes(w))) {
               isMatch = true;
               const nameParts = item._nameNorm.split(" ");
-              // Ưu tiên cao nhất nếu khớp tên chính (từ cuối cùng)
               if (nameParts.length > 0 && nameParts[nameParts.length - 1] === searchWords[searchWords.length - 1]) {
                 score = 120;
               } else {
@@ -1504,7 +1704,6 @@
                 isMatch = true;
                 score = 100;
               } else if (searchNormalized.includes("thuong truc") && item._roleNorm.includes("tt")) {
-                // Hỗ trợ từ viết tắt "TT" (Thường trực)
                 isMatch = true;
                 score = 90;
               }
@@ -1513,7 +1712,6 @@
             // CHỈ TÌM THEO SỐ ĐIỆN THOẠI
             if (searchDigits && item._phoneDigits.includes(searchDigits)) {
               isMatch = true;
-              // Nếu khớp đuôi (4 số cuối) -> ưu tiên điểm cao hơn
               if (item._phoneDigits.endsWith(searchDigits)) {
                 score = 120;
               } else {
@@ -1521,7 +1719,7 @@
               }
             }
           } else {
-            // CHẾ ĐỘ "TẤT CẢ" (Xếp hạng thông minh - Ưu tiên Tên > SĐT > Chức vụ > Đơn vị)
+            // CHẾ ĐỘ "TẤT CẢ" (Ưu tiên Tên > SĐT > Chức vụ > Đơn vị)
             if (searchDigits && searchDigits.length >= 3 && item._phoneDigits.includes(searchDigits)) {
               isMatch = true;
               score += 150;
@@ -1530,7 +1728,7 @@
               isMatch = true;
               const nameParts = item._nameNorm.split(" ");
               if (nameParts.length > 0 && nameParts[nameParts.length - 1] === searchWords[searchWords.length - 1]) {
-                score += 120; // Tên đứng đầu
+                score += 120;
               } else {
                 score += 80;
               }
@@ -1544,7 +1742,7 @@
             }
             if (searchWords.length > 0 && searchWords.every(w => item._unitNorm.includes(w))) {
               isMatch = true;
-              score += 10; // Đơn vị xếp sau cùng
+              score += 10;
             }
             if (searchWords.length > 0 && searchWords.every(w => item._officeNorm.includes(w))) {
               isMatch = true;
@@ -1554,7 +1752,7 @@
         }
 
         if (isMatch) {
-          matchedList.append ? matchedList.append({ score, item }) : matchedList.push({ score, item });
+          matchedList.push({ score, item });
         }
       }
 
@@ -1584,7 +1782,7 @@
       document.getElementById("select-category").value = "ALL";
       document.getElementById("select-unit").value = "ALL";
       currentChip = "ALL";
-      setSearchScope("NAME"); // Khôi phục mặc định tìm theo Tên
+      setSearchScope("NAME");
       document.querySelectorAll(".chip-item").forEach(el => el.classList.remove("active"));
       document.querySelector(".chip-item").classList.add("active");
       applyFilters();
@@ -1636,7 +1834,6 @@
         "END:VCARD"
       ].join("\r\n");
 
-      // Tải tệp vcf
       const blob = new Blob([vcardContent], { type: "text/vcard;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -1647,7 +1844,6 @@
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-      // Hiển thị modal hỗ trợ cho môi trường Zalo WebView
       openZaloModal(item);
     }
 
@@ -1746,14 +1942,11 @@
     // Modal QR Code - SỬ DỤNG LINK RÚT GỌN TINYURL ĐỂ GIẤU HOÀN TOÀN LINK GITHUB
     function updateQrUrl() {
       const targetUrl = SHORT_PORTAL_URL;
-      
-      // Hiển thị chữ đường link rút gọn
       const urlTextEl = document.getElementById("qr-url-text");
       if (urlTextEl) {
         urlTextEl.textContent = targetUrl;
       }
       
-      // Tạo mã QR động tự động cho link rút gọn
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
       const qrImg = document.getElementById("dynamic-qr-img");
       if (qrImg) {
